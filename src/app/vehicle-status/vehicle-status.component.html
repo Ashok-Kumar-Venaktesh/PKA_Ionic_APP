@@ -1,0 +1,24 @@
+
+<!-- <div id="container"> -->
+  <ion-content scrollY="true" >
+    <ion-list *ngFor="let user of users()">
+      <ion-label [ariaColSpan]="4">{{ user.name }} </ion-label>
+      <ion-label [ariaColSpan]="4">{{ user.description }} </ion-label>
+
+      <ion-button
+        color="danger"
+        *ngIf="!user.active"
+        (click)="VehicleAvailable(user)"
+        [ariaColSpan]="4"
+        >Busy</ion-button
+      >
+      <ion-button
+        color="secondary"
+        *ngIf="user.active"
+        [ariaColSpan]="4"
+        (click)="VehicleNotAvailable(user)"
+        >Available</ion-button
+      >
+    </ion-list>
+  </ion-content>
+<!-- </div> -->

@@ -1,4 +1,35 @@
 <div id="container">
-  <strong>{{ name }}</strong>
-  <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-row>
+    <ion-col>
+      <ion-text [(ngModel)]="newUserName" aria-placeholder="name"></ion-text>
+    </ion-col>
+    <ion-col>
+      <ion-button slot="end" fill="clear" color="danger" (click)="createUser()">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-item *ngFor="let user of users()">
+    <!-- <ion-checkbox
+      aria-label="Label"
+      slot="start"
+      [(ngModel)]="user.active"
+      (ionChange)="updateUser(user)"
+    ></ion-checkbox> -->
+    <ion-label>{{ user.name }} </ion-label>
+
+    <ion-button
+      color="danger"
+      *ngIf="!user.active"
+      (click)="VehicleAvailable(user)"
+      >Busy</ion-button
+    >
+    <ion-button
+      color="secondary"
+      *ngIf="user.active"
+      (click)="VehicleNotAvailable(user)"
+      >Available</ion-button
+    >
+  </ion-item>
 </div>
