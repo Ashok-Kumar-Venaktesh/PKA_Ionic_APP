@@ -1,5 +1,5 @@
 import { Component, Input, effect } from '@angular/core';
-import { User } from '../services/vehicledatabase.service';
+// import { User } from '../services/vehicledatabase.service';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { VehicleDatabaseService } from '../services/vehicledatabase.service';
@@ -13,28 +13,35 @@ import { VehicleListModel } from '../Model/VehicleList.model';
 
 export class VehicleListComponent {
   @Input() name?: string;
-  users = this.database.getUsers();
+  // users = this.database.getUsers();
   newUserName = '';
   description = '';
   showAddVehicle = false;
-  vehilceList: Array<VehicleListModel> = [];
+  vehilceList: Array<VehicleListModel> = [
+    // {
+    // 'vehiclename': 'TEST 1',
+    // 'vehicleno': 'TEST 2'
+  // }
+];
 
   constructor(private database: VehicleDatabaseService) {
     effect(() => {
-      console.log('Users changed', this.users());
+      // console.log('Users changed', this.users());
     });
+    this.loadVehilcesList();
+  }
+
+  loadVehilcesList(){
     this.database.getVehiclesList().subscribe({
       next: (d) => {
         JSON.parse(JSON.stringify(d)).forEach((res:any) => {
-          console.log('data', res);
+          // console.log('data', res);
           this.vehilceList.push(res);
         })
-          console.log('d', JSON.parse(JSON.stringify(d)))
+          // console.log('d', JSON.parse(JSON.stringify(d)))
       },
-  });
-    // this.createUser();
+    });
   }
-
   // async createUser() {
   //   if (this.newUserName != '') {
   //     await this.database.addUser(this.newUserName, this.description);
@@ -48,9 +55,11 @@ export class VehicleListComponent {
       // this.database.createVehiclesList({'vehicleno': this.newUserName, 'vehiclename': this.description});
       let temp = {'vehicleno': this.newUserName, 'vehiclename': this.description};
 
-      this.database.createVehiclesList(temp).subscribe({
+      this.database.createVehiclesList(temp).subscribe(
+        {
         next: (d) => {
             console.log('d', d)
+            this.loadVehilcesList();
             this.showAddVehicle = false;
         },
       });
@@ -58,22 +67,29 @@ export class VehicleListComponent {
     }
   }
 
-  updateUser(user: User) {
-    const acitve = user.active ? true : false;
-    this.database.updateUserById(user.id.toString(), acitve);
-  }
+  // updateUser(user: User) {
+  //   const acitve = user.active ? true : false;
+  //   this.database.updateUserById(user.id.toString(), acitve);
+  // }
 
   deleteUser(user: VehicleListModel) {
-    this.database.deleteUser(user.vehicleno.toString());
+    this.database.deleteVehiclesList(user).subscribe(
+      {
+      next: (d) => {
+          console.log('d', d)
+          this.loadVehilcesList();
+          this.showAddVehicle = false;
+      },
+    });
   }
 
-  VehicleAvailable(user: User) {
-    this.database.updateUserById(user.id.toString(), true);
-  }
+  // VehicleAvailable(user: User) {
+  //   this.database.updateUserById(user.id.toString(), true);
+  // }
 
-  VehicleNotAvailable(user: User) {
-    this.database.updateUserById(user.id.toString(), false);
-  }
+  // VehicleNotAvailable(user: User) {
+  //   this.database.updateUserById(user.id.toString(), false);
+  // }
 
   // createVehicleList(data: VehicleListModel){
 

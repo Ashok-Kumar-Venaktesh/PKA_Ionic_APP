@@ -15,7 +15,7 @@ export class AppComponent {
   }
 
   async initApp() {
-    await this.database.initializePlugin();
+    // await this.database.initializePlugin();
     SplashScreen.hide();
   }
 }
