@@ -50,7 +50,7 @@ export class VehicleListComponent {
 
       this.database.createVehiclesList(temp).subscribe({
         next: (d) => {
-            console.log('d', JSON.parse(JSON.stringify(d)))
+            console.log('d', d)
             this.showAddVehicle = false;
         },
       });
