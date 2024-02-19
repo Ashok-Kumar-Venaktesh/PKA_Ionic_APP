@@ -21,7 +21,7 @@ export class VehicleStatusComponent {
   message = '';
   isOpen = false;
   isToastOpen = false;
-
+  isLoading = true;
 
 
    constructor(private database: VehicleDatabaseService) {
@@ -35,11 +35,13 @@ export class VehicleStatusComponent {
   }
 
   loadVehilcesList(){
+    this.isLoading = true;
     this.vehicleStatus = [];
     this.database.getVehiclesList().subscribe({
       next: (d) => {
         JSON.parse(JSON.stringify(d)).forEach((res:any) => {
           this.vehicleStatus.push(res);
+          this.isLoading = false;
         })
       },
     });

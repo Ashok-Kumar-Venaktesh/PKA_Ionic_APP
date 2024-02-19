@@ -17,6 +17,7 @@ export class VehicleListComponent {
   description = '';
   vehiclename = '';
   showAddVehicle = false;
+  isLoading = true;
   vehilceList: Array<VehicleListModel> = [
 ];
 
@@ -27,10 +28,13 @@ export class VehicleListComponent {
   }
 
   loadVehilcesList(){
+    this.vehilceList = [];
+    this.isLoading = true;
     this.database.getVehiclesList().subscribe({
       next: (d) => {
         JSON.parse(JSON.stringify(d)).forEach((res:any) => {
           this.vehilceList.push(res);
+          this.isLoading = false;
         })
       },
     });
