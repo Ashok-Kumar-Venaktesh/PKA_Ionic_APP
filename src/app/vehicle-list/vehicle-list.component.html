@@ -22,7 +22,16 @@
   <ion-col>
     <ion-item>
       <ion-input
-        label="Descritpion"
+        label="Vehicle Type"
+        placeholder="JCB"
+        [(ngModel)]="vehiclename"
+      ></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-input
+        label="Location / Work"
         placeholder="Currently working at GreenFields"
         [(ngModel)]="description"
       ></ion-input>
@@ -39,6 +48,7 @@
       <ion-row>
         <ion-col> <ion-label [ariaColSpan]="6">{{ user.vehicleno }} </ion-label></ion-col>
         <ion-col><ion-label [ariaColSpan]="6">{{ user.vehiclename }}</ion-label></ion-col>
+        <ion-col><ion-label [ariaColSpan]="6">{{ user.description }}</ion-label></ion-col>
         <ion-col><ion-button (click)="deleteUser(user)"> Delete </ion-button></ion-col>
       </ion-row>
     </ion-grid>

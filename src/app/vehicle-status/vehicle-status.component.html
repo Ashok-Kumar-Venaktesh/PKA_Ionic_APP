@@ -1,20 +1,33 @@
-<!-- 
+
   <ion-content scrollY="true" >
     <ion-list *ngFor="let user of vehicleStatus">
+      <ion-row>
+        <ion-col>
       <ion-label [ariaColSpan]="4">{{ user.vehicleno }} </ion-label>
+  </ion-col>
+        <ion-col>
       <ion-label [ariaColSpan]="4">{{ user.description }} </ion-label>
-
-      <ion-button
-        color="danger"
-        *ngIf="!user.active"
-        [ariaColSpan]="4"
-        >Busy</ion-button
-      >
-      <ion-button
-        color="secondary"
-        *ngIf="user.active"
-        [ariaColSpan]="4"
-        >Available</ion-button
-      >
+    </ion-col>
+        <ion-col> <ion-button
+          color="danger"
+          *ngIf="user.vehiclestatus === 'busy'"
+          (click) = "onClickStatus(user, 'active')"
+          [ariaColSpan]="4"
+          >Busy</ion-button
+        >
+        <ion-button
+          color="secondary"
+          *ngIf="user.vehiclestatus === 'active'"
+          (click) = "onClickStatus(user, 'busy')"
+          [ariaColSpan]="4"
+          >Available</ion-button
+        ></ion-col>
+      </ion-row>
+      <ion-toast
+        [isOpen]="isToastOpen"
+        [message]="message"
+        [duration]="5000"
+        (didDismiss)="setOpen(false)"
+      ></ion-toast>
     </ion-list>
-  </ion-content> -->
+  </ion-content>

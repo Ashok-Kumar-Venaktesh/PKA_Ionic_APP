@@ -16,36 +16,46 @@ export class VehicleStatusComponent {
   newUserName = '';
   description = '';
   showAddVehicle = false;
-   vehicleStatus: Array<VehicleListModel> = [];
+   vehicleStatus: Array<VehicleListModel> = [
+  ];
+  message = '';
+  isOpen = false;
+  isToastOpen = false;
 
-  constructor() {
+
+
+   constructor(private database: VehicleDatabaseService) {
     effect(() => {
-      // console.log('Users changed', this.users());
     });
-
-    // this.createUser();
+    this.loadVehilcesList();
   }
 
-  // async createUser() {
-  //   if (this.newUserName != '') {
-  //     await this.database.addUser(this.newUserName, this.description);
-  //     this.showAddVehicle = false;
-  //   }
-  // }
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
+  }
 
-  // updateUser(user: User) {
-  //   const acitve = user.active ? true : false;
-  //   this.database.updateUserById(user.id.toString(), acitve);
-  // }
+  loadVehilcesList(){
+    this.vehicleStatus = [];
+    this.database.getVehiclesList().subscribe({
+      next: (d) => {
+        JSON.parse(JSON.stringify(d)).forEach((res:any) => {
+          this.vehicleStatus.push(res);
+        })
+      },
+    });
+  }
 
-  // VehicleAvailable(user: User) {
-  //   this.database.updateUserById(user.id.toString(), true);
-  // }
+  onClickStatus(v: VehicleListModel, status: string){
+    console.log('will be updated ', v, status);
+    v.vehiclestatus = status;
+    this.database.updateVehiclesList(v).subscribe({
+      next: (d) => {
+        console.log('updated successfully');
+        // this.loadVehilcesList();
+        this.message = `${v.vehicleno} status updated!`
+        this.setOpen(true);
 
-  // VehicleNotAvailable(user: User) {
-  //   this.database.updateUserById(user.id.toString(), false);
-  // }
-  // async createUser() {
-  //   await this.database.addUser(this.newUserName);
-  // }
+      }
+    })
+  } 
 }
