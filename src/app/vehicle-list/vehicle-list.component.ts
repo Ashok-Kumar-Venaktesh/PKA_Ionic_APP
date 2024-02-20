@@ -65,5 +65,13 @@ export class VehicleListComponent {
       },
     });
   }
+
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.loadVehilcesList();
+      event.target.complete();
+    }, 2000);
+  }
  
 }

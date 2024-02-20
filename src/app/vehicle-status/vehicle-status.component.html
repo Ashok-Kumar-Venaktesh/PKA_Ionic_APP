@@ -1,7 +1,19 @@
 
-  <ion-content scrollY="true" >
-    <ion-list *ngFor="let user of vehicleStatus">
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    pullingText="Pull to refresh"
+    refreshingSpinner="circles"
+    refreshingText="Refreshing..."
+  >
+  </ion-refresher-content>
+</ion-refresher>
+<ion-content scrollY="true" >
+    <ion-list *ngFor="let user of vehicleStatus; index as i">
       <ion-row>
+        <ion-col>
+          <ion-col> <ion-label [ariaColSpan]="2">{{ i+1 }} </ion-label></ion-col>
+        </ion-col>
         <ion-col>
       <ion-label [ariaColSpan]="4">{{ user.vehicleno }} </ion-label>
   </ion-col>
@@ -31,4 +43,4 @@
       ></ion-toast>
     </ion-list>
   </ion-content>
-  <ion-loading class="custom-loading"  [isOpen]="isLoading" message="Vehicles are loading. After long inactivity it might take some time. Don't close the app!" [duration]="3000"></ion-loading>
+  <ion-loading class="custom-loading"  [isOpen]="isLoading" message="Vehicles are loading. After long inactivity it might take some time. Don't close the app!"  [duration]="30000" ></ion-loading>
