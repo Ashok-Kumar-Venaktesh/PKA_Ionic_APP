@@ -7,7 +7,8 @@ import { VehicleListModel } from '../Model/VehicleList.model';
   providedIn: 'root',
 })
 export class VehicleDatabaseService {
-  private url: string = 'https://pka-backend-service.onrender.com';
+  private url: string = 'https://pka-earthmovers.vercel.app';
+  // private url: string = 'https://pka-backend-service.onrender.com';
   // private url: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {

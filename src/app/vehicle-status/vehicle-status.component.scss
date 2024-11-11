@@ -32,3 +32,39 @@ ion-loading.custom-loading {
 
   color: #1c6dff;
 }
+
+.vehicle-number-label {
+  white-space: nowrap;         /* Prevents line break */
+  overflow: hidden;            /* Ensures overflow text is hidden */
+  text-overflow: ellipsis;     /* Adds ellipsis if text is too long */
+  text-align: left;            /* Left-aligns the vehicle number */
+  padding-left: 8px;           /* Adds custom padding if needed */
+}
+
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.vehicle-info {
+  display: flex;
+  align-items: center; /* Centers the icon and text vertically */
+}
+
+.vehicle-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+
+.vehicle-number-label {
+  white-space: nowrap;  /* Prevents the label from wrapping */
+}
+
+.vehicle-divider {
+  border: none;
+  border-top: 1px solid #ccc; /* Light gray color */
+  margin: 8px 0;              /* Adds vertical spacing around the divider */
+  width: 100%;
+}
