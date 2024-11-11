@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "pka-earthmovers",
     "public": "www",
     "ignore": [
       "firebase.json",

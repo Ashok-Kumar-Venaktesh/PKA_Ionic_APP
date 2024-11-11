@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "pka-earthmovers"
-  }
+    "default": "pka-earthmovers",
+    "staging": "pka-earthmovers"
+  },
+  "targets": {},
+  "etags": {}
 }
