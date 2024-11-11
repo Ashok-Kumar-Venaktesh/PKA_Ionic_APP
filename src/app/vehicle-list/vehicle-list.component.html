@@ -1,58 +1,73 @@
-<ion-row>
-  <ion-col></ion-col>
-  <ion-col>
-    <ion-icon
-      style="text-align: center"
-      name="add-outline"
-      (click)="showAddVehicle = true"
-    ></ion-icon>
-  </ion-col>
-</ion-row>
+<!-- <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+<ion-refresher-content> -->
 
-<ion-row *ngIf="showAddVehicle===true">
-  <ion-col>
-    <!-- <ion-text [(ngModel)]="newUserName" aria-placeholder="name"></ion-text> -->
-
-    <ion-item>
-      <ion-input
-        label="Vehicle Number"
-        placeholder="TN 00 CA 0020"
-        [(ngModel)]="newUserName"
-      ></ion-input>
-    </ion-item>
-  </ion-col>
-  <ion-col>
-    <!-- <ion-text [(ngModel)]="description" aria-placeholder="name"></ion-text> -->
-    <ion-item>
-      <ion-input
-        label="Descritpion"
-        placeholder="Currently working at GreenFields"
-        [(ngModel)]="description"
-      ></ion-input>
-    </ion-item>
-  </ion-col>
-  <ion-col>
-    <ion-button (click)="createUser()"> Save Vehicle </ion-button>
-  </ion-col>
-</ion-row>
-
-<ion-content scrollY="true" >
-  <ion-list *ngFor="let user of users()">
-    <ion-label>{{ user.name }}</ion-label>
-    <ion-label>{{ user.description }} </ion-label>
-    <ion-button (click)="deleteUser(user)"> Delete </ion-button>
-    <!-- <ion-button
-      color="danger"
-      *ngIf="!user.active"
-      (click)="VehicleAvailable(user)"
-      >Busy</ion-button
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
     >
-    <ion-button
-    
-      color="secondary"
-      *ngIf="user.active"
-      (click)="VehicleNotAvailable(user)"
-      >Available</ion-button
-    > -->
-  </ion-list>
-</ion-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col>
+      <ion-icon
+        style="text-align: center"
+        name="add-outline"
+        (click)="showAddVehicle = true"
+      ></ion-icon>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row *ngIf="showAddVehicle===true">
+    <ion-col>
+      <ion-item>
+        <ion-input
+          label="Vehicle Number"
+          placeholder="TN 00 CA 0020"
+          [(ngModel)]="newUserName"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-input
+          label="Vehicle Type"
+          placeholder="JCB"
+          [(ngModel)]="vehiclename"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-input
+          label="Location / Work"
+          placeholder="Currently working at GreenFields"
+          [(ngModel)]="description"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="createVehicleList()"> Save Vehicle </ion-button>
+    </ion-col>
+  </ion-row>
+  
+  <ion-content scrollY="true" >
+    <ion-list *ngFor="let user of vehilceList; index as i">
+      <ion-grid>
+        <ion-row>
+          <ion-col> <ion-label [ariaColSpan]="6">{{ i+1 }} </ion-label></ion-col>
+          <ion-col> <ion-label [ariaColSpan]="6">{{ user.vehicleno }} </ion-label></ion-col>
+          <ion-col><ion-label [ariaColSpan]="6">{{ user.vehiclename }}</ion-label></ion-col>
+          <ion-col><ion-label [ariaColSpan]="6">{{ user.description }}</ion-label></ion-col>
+          <ion-col><ion-button (click)="deleteUser(user)"> Delete </ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ion-content>
+  <ion-loading class="custom-loading"  [isOpen]="isLoading" message="Vehicles are loading. After long inactivity it might take some time. Don't close the app!"  [duration]="30000"></ion-loading>
+  
+<!-- </ion-refresher-content>
+</ion-refresher> -->

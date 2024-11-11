@@ -1,8 +1,9 @@
 import { Component, Input, effect } from '@angular/core';
-import { User } from '../services/vehicledatabase.service';
+// import { User } from '../services/vehicledatabase.service';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { VehicleDatabaseService } from '../services/vehicledatabase.service';
+import { VehicleListModel } from '../Model/VehicleList.model';
 
 @Component({
   selector: 'app-vehicle-status',
@@ -11,39 +12,62 @@ import { VehicleDatabaseService } from '../services/vehicledatabase.service';
 })
 export class VehicleStatusComponent {
   @Input() name?: string;
-  users = this.database.getUsers();
+  // users = this.database.getUsers();
   newUserName = '';
   description = '';
   showAddVehicle = false;
+   vehicleStatus: Array<VehicleListModel> = [
+  ];
+  message = '';
+  isOpen = false;
+  isToastOpen = false;
+  isLoading = true;
 
-  constructor(private database: VehicleDatabaseService) {
+
+   constructor(private database: VehicleDatabaseService) {
     effect(() => {
-      console.log('Users changed', this.users());
     });
-
-    // this.createUser();
+    this.loadVehilcesList();
   }
 
-  async createUser() {
-    if (this.newUserName != '') {
-      await this.database.addUser(this.newUserName, this.description);
-      this.showAddVehicle = false;
-    }
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 
-  updateUser(user: User) {
-    const acitve = user.active ? true : false;
-    this.database.updateUserById(user.id.toString(), acitve);
+  loadVehilcesList(){
+    this.isLoading = true;
+    this.vehicleStatus = [];
+    this.database.getVehiclesList().subscribe({
+      next: (d) => {
+        JSON.parse(JSON.stringify(d)).forEach((res:any) => {
+          this.vehicleStatus.push(res);
+          this.isLoading = false;
+        })
+      },
+    });
   }
 
-  VehicleAvailable(user: User) {
-    this.database.updateUserById(user.id.toString(), true);
-  }
+  onClickStatus(v: VehicleListModel, status: string){
+    console.log('will be updated ', v, status);
+    v.vehiclestatus = status;
+    this.database.updateVehiclesList(v).subscribe({
+      next: (d) => {
+        console.log('updated successfully');
+        // this.loadVehilcesList();
+        this.message = `${v.vehicleno} status updated!`
+        this.setOpen(true);
 
-  VehicleNotAvailable(user: User) {
-    this.database.updateUserById(user.id.toString(), false);
+      }
+    })
+  } 
+
+  
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.loadVehilcesList();
+      event.target.complete();
+    }, 2000);
   }
-  // async createUser() {
-  //   await this.database.addUser(this.newUserName);
-  // }
+  
 }
