@@ -46,17 +46,23 @@ ion-loading.custom-loading {
   align-items: center;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: flex-start;  /* Aligns buttons to the left */
+  gap: 8px;                     /* Adds space between buttons */
+  flex-wrap: wrap;              /* Allows buttons to wrap if screen is small */
+}
+
 .vehicle-info {
   display: flex;
-  align-items: center; /* Centers the icon and text vertically */
+  align-items: center;
 }
 
 .vehicle-icon {
-  width: 20px;
+  width: 20px;                  /* Adjust size as needed */
   height: 20px;
   margin-right: 8px;
 }
-
 
 .vehicle-number-label {
   white-space: nowrap;  /* Prevents the label from wrapping */
@@ -67,4 +73,43 @@ ion-loading.custom-loading {
   border-top: 1px solid #ccc; /* Light gray color */
   margin: 8px 0;              /* Adds vertical spacing around the divider */
   width: 100%;
+}
+
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-start;  /* Aligns buttons to the left */
+  gap: 8px;                     /* Adds space between buttons */
+  flex-wrap: wrap;              /* Allows buttons to wrap if screen is small */
+}
+
+.status-button {
+  height: 40px;                /* Sets a consistent height for all buttons */
+  font-size: 16px;             /* Consistent font size for desktop and mobile */
+  padding: 0 16px;             /* Uniform padding */
+  line-height: 1.2;            /* Controls line height for consistent text alignment */
+  min-width: 80px;             /* Minimum width to maintain shape */
+}
+
+.available-button {
+  --background: #28a745;       /* Background color for "Available" button */
+  --color: #fff;               /* Text color */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .status-button {
+    height: 36px;             /* Adjusts height for mobile screens */
+    font-size: 14px;          /* Smaller font size for mobile screens */
+    padding: 0 12px;          /* Reduced padding on mobile */
+  }
+}
+
+
+@media (max-width: 600px) {
+  ion-button.available-button {
+    padding: 0 8px;            /* Reduce padding */
+    font-size: 14px;           /* Smaller font size */
+    white-space: nowrap;       /* Prevent text wrapping */
+  }
 }
